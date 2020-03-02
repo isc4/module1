@@ -7,7 +7,7 @@
 4. Изменение записи в таблице по id
 5. Удаление записи в таблице по id
 6. Получение записей таблицы по ключевому значению
-7. Поиск записи соответствующей указанным значениям логин - пароль 
+7. Поиск записи соответствующей заданным параметрам
 */
 
 
@@ -20,7 +20,7 @@
 * @method update()
 * @method delete()
 * @method filter()
-* @method login()
+* @method findByParam()
 */
 
 
@@ -126,14 +126,14 @@ class QueryBuilder {
 
     }
 
-    // 7. Поиск записи соответствующей указанным значениям логин - пароль 
+    // 7. Поиск записи соответствующей заданным параметрам
     /*
-    * login( string $table, array $data ) : array
+    * findByParam( string $table, array $param ) : array
     */
 
-    public function login ($table, $data) 
+    public function findByParam ($table, $param) 
     {
-        $keys = array_keys($data);
+        $keys = array_keys($param);
         $string = '';
         foreach($keys as $key) {
             $string .= $key . '=:' . $key . ' AND ';
@@ -141,8 +141,8 @@ class QueryBuilder {
         $keys = rtrim($string, ' AND ');
         $sql = "SELECT * FROM {$table} WHERE {$keys}";
         $statment = $this->pdo->prepare($sql);
-        $statment->bindValue("{$keys}", implode(',', $data));
-        $statment->execute($data);
+        $statment->bindValue("{$keys}", implode(',', $param));
+        $statment->execute($param);
         $posts = $statment->fetch(PDO::FETCH_ASSOC);
         return $posts;
 
