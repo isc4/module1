@@ -12,7 +12,7 @@
 * Class Valodation
 *
 * @method ischeckForEmpty()
-* @method ispasswordLong()
+* @method maxLenght()
 * @method isemailValid()
 * @method ispasswordValid()
 */
@@ -34,9 +34,9 @@ public static function ischeckForEmpty($data)
 
 // 2. Проверка длинны пароля на соответствие
 /*
-* ispasswordLong( string $password, integer $longPass ) : bool
+* maxLenght( string $password, integer $longPass ) : bool
 */
-public static function ispasswordLong($password, int $longPass)
+public static function maxLenght($password, int $longPass)
 {
    if (strlen($password) !== $longPass) {
     return false;
